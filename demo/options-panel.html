@@ -1,0 +1,36 @@
+<div class="collapse" id="options" data-parent="#panel">
+  <div class="card rounded-0">
+    <div class="card-body container">
+      <div class="row">
+        <div class="col col-md-12">
+          <p class="form-inline">
+            color <input type="text" class="form-control form-control-sm mx-1" ng-model="optionsForm.color">
+            , eye distance <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.distance">
+            , face width <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.faceWidth">
+            , nose width <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.noseWidth">
+          </p>
+          <p class="form-inline">
+            eye:
+            radius <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.outer.R">
+            , color <input type="text" class="form-control form-control-sm mx-1" ng-model="optionsForm.outer.fill">
+            , stroke width <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.outer.strokeWidth">
+            , stroke color<input type="text" class="form-control form-control-sm mx-1" ng-model="optionsForm.outer.stroke">
+          </p>
+          <p class="form-inline">
+            inner eye:
+            radius <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.inner.R">
+            , color <input type="text" class="form-control form-control-sm mx-1" ng-model="optionsForm.inner.color">
+          </p>
+          <p class="form-inline">
+            pupil:
+            radius <input type="number" class="form-control form-control-sm mx-1" ng-model="optionsForm.pupil.R">
+            , color <input type="text" class="form-control form-control-sm mx-1" ng-model="optionsForm.pupil.color">
+          </p>
+          <p class="form-inline">
+            <button class="btn btn-sm btn-dark mx-1" ng-click="onOptionsApply()">apply</button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- options -->
