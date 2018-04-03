@@ -603,7 +603,6 @@
 
     this.init = init;
     this.draw = draw;
-    this.stop = stop;
     this.move = move;
     this.resetMove = resetMove;
     this.moveInner = moveInner;
@@ -734,7 +733,6 @@
       }
       var cx = x + center.x;
       var cy = y + center.y;
-      // var matrix = new Snap.Matrix().translate(x * 0.9, y * 0.9);
       var matrix = new Snap.Matrix().translate(x, y);
       return Promise.all([
         self.components.pupil.animatePromise({ cx: cx, cy: cy }, duration, easing),
