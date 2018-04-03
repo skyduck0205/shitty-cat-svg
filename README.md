@@ -70,19 +70,19 @@ How color gradient works: [Snap.svg#Paper.gradient](http://snapsvg.io/docs/#Pape
 |Property|Type|Description|
 |---|---|---|
 |components|object|main components of the shitty cat|
-|components.leftEye|[Eye](#Eye)|left eye|
-|components.rightEye|[Eye](#Eye)|right eye|
-|components.mouth|[Mouth](#Mouth)|mouth|
+|components.leftEye|[Eye](#eye)|left eye|
+|components.rightEye|[Eye](#eye)|right eye|
+|components.mouth|[Mouth](#mouth)|mouth|
 |options|object|configuration options|
-|actions|object|shitty cat actions, see [ShittyCatActions API](#ShittyCatActions)|
-|(methods)|function|see [ShittyCat API](#ShittyCat)|
+|actions|object|shitty cat actions, see [ShittyCatActions API](#shittycatactions)|
+|(methods)|function|see [ShittyCat API](#shittycat)|
 
 ### Eye
 |Property|Type|Description|
 |---|---|---|
 |svg|Snap.Element|Snap element of eye|
 |components|object|children components of eye|
-|(methods)|function|see [Eye API](#ShittyCat)|
+|(methods)|function|see [Eye API](#eye-1)|
 
 ### Mouth
 |Property|Type|Description|
@@ -94,11 +94,11 @@ How color gradient works: [Snap.svg#Paper.gradient](http://snapsvg.io/docs/#Pape
 
 ### ShittyCat
 
-`window.ShittyCat` is an instance of [EyesController](#EyesController).
+`window.ShittyCat` is an instance of [EyesController](#eyescontroller).
 
 #### init([options=DEFAULT_OPTIONS])
 
-- `options` (object): Shitty cat options. For default options, see [Configuration](#Configuration).
+- `options` (object): Shitty cat options. For default options, see [Configuration](#configuration).
 
 Initialize the shitty cat. It does:
 1. Merge options with current option.
