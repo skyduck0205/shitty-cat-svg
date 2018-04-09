@@ -8,7 +8,7 @@ gulp.task('serve', ['jshint'], function() {
   $.browserSync.init({
     server: '.'
   });
-  gulp.watch(['src/**/*.js', 'demo/**/*.js'], ['jshint']);
+  gulp.watch(['src/**/*.js', 'demo/**/*.js'], ['build']);
   gulp.watch(['src/**/*.*', 'demo/**/*.*', '*.html'])
     .on('change', $.browserSync.reload);
 });
@@ -33,7 +33,7 @@ gulp.task('concat', ['jshint'], function() {
   return gulp.src([
     'src/shitty-cat-utils.js',
     'src/shitty-cat-action-pack.js',
-    'src/shitty-cat-svg.js'
+    'src/shitty-cat-core.js'
   ])
     .pipe($.concat('shitty-cat-svg.js'))
     .pipe(gulp.dest('dist'));

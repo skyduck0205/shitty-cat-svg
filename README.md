@@ -11,6 +11,7 @@
 
 - [Snap.svg 5.x](http://snapsvg.io/)
 - [lodash 4.x](https://lodash.com/)
+- ES6 Promise
 - A cat lover/hater
 
 
@@ -19,9 +20,11 @@
 Include scripts and styles in your html:
 
 ```html
-<script src="path/to/lodash.min.js"></script>
-<script src="path/to/shitty-cat-svg.min.js"></script>
-<link rel="stylesheet" href="path/to/shitty-cat-svg.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/es6-promise/4.1.1/es6-promise.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
+<script src="path/to/shitty-cat-svg.js"></script>
+<link rel="stylesheet" href="path/to/shitty-cat-svg.css">
 ```
 
 Add a cat element with the default id `shitty-cat` and call the `ShittyCat.init` method.
@@ -97,7 +100,6 @@ How color gradient works: [Snap.svg#Paper.gradient](http://snapsvg.io/docs/#Pape
 `window.ShittyCat` is an instance of [EyesController](#eyescontroller).
 
 #### init([options=DEFAULT_OPTIONS])
-
 - `options` (object): Shitty cat options. For default options, see [Configuration](#configuration).
 
 Initialize the shitty cat. It does:
@@ -106,76 +108,116 @@ Initialize the shitty cat. It does:
 1. Load default actions.
 
 #### loadActions(actions)
-
 - `actions` (object): New actions.
 
 Add new actions to shitty cat. The method binds `ShittyCat` as `this` for all actions.
 ```javascript
 ShittyCat.loadActions({
   lookLeft: function() {
-    this.components.leftEye.move(-50, 0, 100);
-    this.components.rightEye.move(-50, 0, 100);
+    this.components.leftEye.move(-50, 0, 500);
+    this.components.rightEye.move(-50, 0, 500);
   }
 });
 
 ShittyCat.actions.lookLeft();
 ```
 
-#### miniMode(mini, [r=60])
+It is recommended to return a promise for chaining the actions.
 
+```javascript
+ShittyCat.loadActions({
+  lookLeft: function() {
+    return Promise.all([
+      this.components.leftEye.move(-50, 0, 500),
+      this.components.rightEye.move(-50, 0, 500)
+    ]);
+  }
+});
+
+// Look to the left then blink twice
+ShittyCat.actions.lookLeft()
+  .then(ShittyCat.actions.blink)
+  .then(ShittyCat.actions.blink);
+```
+
+#### miniMode(mini, [r=60])
 - `mini` (boolean): Should transform into mini mode or not.
 - `r` (number): Radius of eyes in mini mode.
 
 #### destroy()
-
 Remove all elements inside the container.
 
 ---
 
 ### Eye
 
-#### move(x, y, [duration, easing])
+[mina]: (http://snapsvg.io/docs/#mina)
 
+#### move(x, y, [duration=0, easing=mina.linear])
+- `x` (number): Amount of x-axis translation.
+- `y` (number): Amount of y-axis translation.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### resetMove([duration, easing])
-
+#### resetMove([duration=0, easing=mina.linear])
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### moveInner(x, y, [duration, easing])
-
+#### moveInner(x, y, [duration=0, easing=mina.linear])
+- `x` (number): Amount of x-axis translation.
+- `y` (number): Amount of y-axis translation.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### movePupil(x, y, [duration, easing])
-
+#### movePupil(x, y, [duration=0, easing=mina.linear])
+- `x` (number): Amount of x-axis translation.
+- `y` (number): Amount of y-axis translation.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### scalePupil(x, y, [duration, easing])
-
+#### scalePupil(x, y, [duration=0, easing=mina.linear])
+- `x` (number): Amount of x-axis scale.
+- `y` (number): Amount of y-axis scale.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### resetScalePupil([duration, easing])
-
+#### resetScalePupil([duration=0, easing=mina.linear])
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### moveEyelid(name, percentage, [duration, easing])
-
+#### moveEyelid(name, percentage, [duration=0, easing=mina.linear])
+- `name` (string): Move `'top'` or `'bottom'` eyelid.
+- `percentage` (number): Amount of movement between 0 ~ 1.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### moveEyelids(topPercentage, bottomPercentage, [duration, easing])
-
+#### moveEyelids(topPercentage, bottomPercentage, [duration=0, easing=mina.linear])
+- `topPercentage` (number): Amount of movement between 0 ~ 1.
+- `bottomPercentage` (number): Amount of movement between 0 ~ 1.
 - Return: (Promise): Animation promise.
 
-#### resetMoveEyelids([duration, easing])
-
+#### resetMoveEyelids([duration=0, easing=mina.linear])
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### rotateEyelid(name, deg, [duration, easing])
-
+#### rotateEyelid(name, deg, [duration=0, easing=mina.linear])
+- `name` (string): Rotate `'top'` or `'bottom'` eyelid.
+- `deg` (number): Amount of rotation.
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
-#### resetRotateEyelids([duration, easing])
-
+#### resetRotateEyelids([duration=0, easing=mina.linear])
+- `duration` (number): Animation duration in millisecond.
+- `easing` (function): Easing function from [Snap.svg#mina][mina] or custom.
 - Return: (Promise): Animation promise.
 
 ---
@@ -183,14 +225,12 @@ Remove all elements inside the container.
 ### ShittyCatActions
 
 #### wait(t)
-
 - `t` (number): Milliseconds to wait.
 - Return: (Promise): Animation promise.
 
-#### look(, [t=200])
-
+#### look(position, [t=200])
 - `position` (object|string): Where the cat will look at. The value could be an object with format: `{ x: number, y: nubmer }`, or a string of direction `'TL'`, `'T'`, `'TR'`, `'L'`, `'M'`, `'R'`, `'BL'`, `'B'`, `'BR'`.
-- `t` (number):  Animation duration in millisecond.
+- `t` (number): Animation duration in millisecond.
 - Return: (Promise): Animation promise.
 
 #### lookAround()
@@ -211,13 +251,15 @@ Remove all elements inside the container.
 - Return: (Promise): Animation promise.
 
 #### stop([t=200])
-- `t` (number):  Animation duration in millisecond.
+- `t` (number): Animation duration in millisecond.
 - Return: (Promise): Animation promise.
 
 Stop current action and rest the components to their initial states.
 
 #### normal()
 - Return: (Promise): Animation promise.
+
+It blinks automatically in every 4 ~ 7 seconds.
 
 #### angry()
 - Return: (Promise): Animation promise.
@@ -277,12 +319,12 @@ Get center position of input element from its width and height.
 - `r` (number): Radius of circle.
 - Return: (Snap.Element): A path object.
 
-#### Element.prototype.animatePromise(attrs, [duration, easing])
+#### Element.prototype.animatePromise(attrs, [duration=0, easing=mina.linear])
 - Return: (Promise): Animation promise.
 
 For more information, see: [Snap.svg#Element.animate](http://snapsvg.io/docs/#Element.animate).
 
-#### Snap.animatePromise(rom, to, setter, [duration, easing])
+#### Snap.animatePromise(rom, to, setter, [duration=0, easing=mina.linear])
 - Return: (Promise): Animation promise.
 
 For more information, see: [Snap.svg#Snap.animate](http://snapsvg.io/docs/#Snap.animate).
